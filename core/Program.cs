@@ -1,4 +1,5 @@
 using core;
+using core.Services;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,9 @@ builder.Services.Configure<FruitOptions>(options =>
 {
     options.Name = "Watermelon";
 });
+
+// registering services
+builder.Services.AddSingleton<IResponseFormatter, HtmlResponseFormatter>();
 
 
 var app = builder.Build();
@@ -54,6 +58,20 @@ app.UseMiddleware<FruitMiddleware>();
 
 // here I write the custom middleware directly as I declared the details extension version in CustomMiddlewareExtension class
 app.UseCustomMiddleware();
+
+
+app.MapGet("/formatter1", async (HttpContext context, IResponseFormatter formatter)=>
+{
+    await formatter.Format(context, "formatter_1");
+});
+
+
+app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatter) =>
+{
+    await formatter.Format(context, "formatter_2");
+});
+
+app.UseMiddleware<HtmlFormatterMiddleware>();
 
 app.MapGet("/", () => "Hello Shuva! This is your first dotnet application in using dotnet 6.0. Learn carefully and get job ready programmer within one month.");
 
