@@ -29,3 +29,8 @@ E:\Asp .Net 6 Learning\core\core\bin\Debug\net6.0\Microsoft.Extensions.Caching.M
 E:\Asp .Net 6 Learning\core\core\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 E:\Asp .Net 6 Learning\core\core\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 E:\Asp .Net 6 Learning\core\core\obj\Debug\net6.0\core.csproj.CopyComplete
+E:\Asp .Net 6 Learning\core\core\obj\Debug\net6.0\staticwebassets\msbuild.core.Microsoft.AspNetCore.StaticWebAssets.props
+E:\Asp .Net 6 Learning\core\core\obj\Debug\net6.0\staticwebassets\msbuild.build.core.props
+E:\Asp .Net 6 Learning\core\core\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.core.props
+E:\Asp .Net 6 Learning\core\core\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.core.props
+E:\Asp .Net 6 Learning\core\core\obj\Debug\net6.0\staticwebassets.pack.json

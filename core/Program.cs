@@ -1,6 +1,5 @@
 using core;
 using core.Services;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +10,6 @@ builder.Services.Configure<FruitOptions>(options =>
 
 // registering services
 builder.Services.AddSingleton<IResponseFormatter, HtmlResponseFormatter>();
-
 
 var app = builder.Build();
 
@@ -26,7 +24,7 @@ var app = builder.Build();
 //    // In terminal middleware does not have next() calls, that is why it does not forward to next component.
 //});
 
-/** 
+/**
  * Here we registering the terminal middleware from the class based middleware
  * for writing this terminal middleware we had to declare a empty construtor inside the CustomMiddleware class
  * file.
@@ -43,7 +41,6 @@ object value = app.MapGet("/fruit", async (HttpContext context, IOptions<FruitOp
 });
 */
 
-
 app.Use(async (context, next) =>
 {
     await next();
@@ -52,19 +49,16 @@ app.Use(async (context, next) =>
 
 app.UseMiddleware<FruitMiddleware>();
 
-
 // registerring a custom middleware
 // app.UseMiddleware<CustomMiddleware>();
 
 // here I write the custom middleware directly as I declared the details extension version in CustomMiddlewareExtension class
 app.UseCustomMiddleware();
 
-
-app.MapGet("/formatter1", async (HttpContext context, IResponseFormatter formatter)=>
+app.MapGet("/formatter1", async (HttpContext context, IResponseFormatter formatter) =>
 {
     await formatter.Format(context, "formatter_1");
 });
-
 
 app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatter) =>
 {
@@ -72,6 +66,13 @@ app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatt
 });
 
 app.UseMiddleware<HtmlFormatterMiddleware>();
+
+
+// Getting loglevel
+app.MapGet("/config", (HttpContext context, IConfiguration config) => {
+    string defaultDebug = config["Logging:LogLevel:Default"];
+    context.Response.WriteAsync($"Loglevel: {defaultDebug}");
+});
 
 app.MapGet("/", () => "Hello Shuva! This is your first dotnet application in using dotnet 6.0. Learn carefully and get job ready programmer within one month.");
 
