@@ -69,9 +69,18 @@ app.UseMiddleware<HtmlFormatterMiddleware>();
 
 
 // Getting loglevel
-app.MapGet("/config", (HttpContext context, IConfiguration config) => {
+app.MapGet("/config", (HttpContext context, IConfiguration config) =>
+{
     string defaultDebug = config["Logging:LogLevel:Default"];
     context.Response.WriteAsync($"Loglevel: {defaultDebug}");
+});
+
+
+// https requests
+
+app.MapGet("/https", async context =>
+{
+    await context.Response.WriteAsync($"Https request: {context.Request.IsHttps}");
 });
 
 app.MapGet("/", () => "Hello Shuva! This is your first dotnet application in using dotnet 6.0. Learn carefully and get job ready programmer within one month.");
